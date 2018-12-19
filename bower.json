@@ -1,0 +1,33 @@
+{
+  "name": "jzz-gui-player",
+  "description": "Karaoke Player for browsers",
+  "authors": [
+    "jazz-soft (https://jazz-soft.net/)"
+  ],
+  "main": "javascript/JZZ.gui.Player.js",
+  "moduleType": [
+    "amd",
+    "node",
+    "globals"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "MIDI",
+    "midi",
+    "karaoke",
+    "player"
+  ],
+  "homepage": "https://github.com/jazz-soft/JZZ-gui-Player",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "minified",
+    "test.*",
+    "Gruntfile.js"
+  ],
+  "dependencies": {
+    "jzz": "^0.6.6",
+    "jzz-midi-smf": "^1.0.8"
+  }
+}
