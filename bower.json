@@ -1,5 +1,5 @@
 {
-  "name": "jzz-gui-player",
+  "name": "jzz-gui-karaoke",
   "description": "Karaoke Player for browsers",
   "authors": [
     "jazz-soft (https://jazz-soft.net/)"
@@ -17,7 +17,7 @@
     "karaoke",
     "player"
   ],
-  "homepage": "https://github.com/jazz-soft/JZZ-gui-Player",
+  "homepage": "https://github.com/jazz-soft/JZZ-gui-Karaoke",
   "ignore": [
     "**/.*",
     "node_modules",
