@@ -124,6 +124,27 @@
       }
     }
   };
+  Karaoke.prototype.toString = function() {
+    var a = [];
+    for (var i = 0; i < this.tracks.length; i++) {
+      var track = this.tracks[i];
+      if (this.tracks[i].title) {
+        if (a.length) a.push('');
+        a.push(this.tracks[i].title);
+      }
+      for (var j = 0; j < this.tracks[i].verses.length; j++) {
+        if (a.length) a.push('');
+        for (var k = 0; k < this.tracks[i].verses[j].lines.length; k++) {
+          var s = '';
+          for (var n = 0; n < this.tracks[i].verses[j].lines[k].spans.length; n++) {
+            s += this.tracks[i].verses[j].lines[k].spans[n].txt;
+          }
+          a.push(s);
+        }
+      }
+    }
+    return a.join('\n');
+  }
 
   JZZ.gui.Karaoke = Karaoke;
 });
