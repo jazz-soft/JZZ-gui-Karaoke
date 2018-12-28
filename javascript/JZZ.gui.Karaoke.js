@@ -53,7 +53,7 @@
           if (smf[i][j].ff == 1) {
             tt = smf[i][j].tt;
             if (!track) {
-              track = { tt: tt, verses: [] };
+              track = { tt: tt, verses: [], update: update };
               if (this.gui) {
                 track.dom = document.createElement('div');
                 this.gui.appendChild(track.dom);
@@ -118,10 +118,7 @@
   };
   Karaoke.prototype._receive = function(msg) {
     if (typeof msg.tt != 'undefined') {
-      for (; this.current < this.spans.length; this.current++) {
-        if (msg.tt < this.spans[this.current][0]) break;
-        this.spans[this.current][1].className = 'hi';
-      }
+      for (var i = 0; i < this.tracks.length; i++) this.tracks[i].update(msg.tt);
     }
   };
   Karaoke.prototype.toString = function() {
@@ -144,6 +141,15 @@
       }
     }
     return a.join('\n');
+  };
+  function update(tt) {
+    var i;
+    var verse;
+    for (i = 0; i < this.verses.length; i++) {
+      if (tt < this.verses[i].tt) break;
+      verse = i;
+      //  this.spans[this.current][1].className = 'hi';
+    }
   }
 
   JZZ.gui.Karaoke = Karaoke;
