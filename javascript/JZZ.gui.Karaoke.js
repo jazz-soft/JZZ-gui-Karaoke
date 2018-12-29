@@ -13,12 +13,15 @@
   if (!JZZ.gui) JZZ.gui = {};
   if (JZZ.gui.Karaoke) return;
 
+  var _gui;
+
   function Karaoke(at) {
     var self = new JZZ.Widget();
     for (var k in Karaoke.prototype) if (Karaoke.prototype.hasOwnProperty(k)) self[k] = Karaoke.prototype[k];
     self.tracks = [];
     try {
       self.gui = document.createElement('div');
+      _gui = true;
     }
     catch (e) {
       return self; // not in browser
@@ -53,7 +56,7 @@
           if (smf[i][j].ff == 1) {
             tt = smf[i][j].tt;
             if (!track) {
-              track = { tt: tt, verses: [], update: update };
+              track = { tt: tt, verses: [], reset: reset, update: update, newVerse: newVerse, newLine: newLine, newSpan: newSpan };
               if (this.gui) {
                 track.dom = document.createElement('div');
                 this.gui.appendChild(track.dom);
@@ -113,8 +116,7 @@
     }
   };
   Karaoke.prototype.reset = function() {
-    //for (var i = 0; i < this.spans.length; i++) this.spans[i][1].className = '';
-    //this.current = 0;
+    for (var i = 0; i < this.tracks.length; i++) this.tracks[i].reset();
   };
   Karaoke.prototype._receive = function(msg) {
     if (typeof msg.tt != 'undefined') {
@@ -142,14 +144,68 @@
     }
     return a.join('\n');
   };
-  function update(tt) {
-    var i;
-    var verse;
-    for (i = 0; i < this.verses.length; i++) {
-      if (tt < this.verses[i].tt) break;
-      verse = i;
-      //  this.spans[this.current][1].className = 'hi';
+  function reset() {
+    var i, j, k;
+    if (_gui) {
+      for (i = 0; i < this.verses.length; i++) {
+        this.verses[i].dom.className = '';
+        for (j = 0; j < this.verses[i].lines.length; j++) {
+          this.verses[i].lines[j].dom.className = '';
+          for (k = 0; k < this.verses[i].lines[j].spans.length; k++) {
+            this.verses[i].lines[j].spans[k].dom.className = '';
+          }
+        }
+      }
     }
+    this.verse = undefined;
+  }
+  function update(tt) {
+    var i, j, k;
+    for (i = this.verse ? this.verse : 0; i < this.verses.length; i++) {
+      if (tt < this.verses[i].tt) break;
+      if (i != this.verse) this.newVerse(i);
+    }
+    if (typeof this.verse == 'undefined') return;
+    for (i = this.line ? this.line : 0; i < this.verses[this.verse].lines.length; i++) {
+      if (tt < this.verses[this.verse].lines[i].tt) break;
+      if (i != this.line) this.newLine(i);
+    }
+    for (i = this.span ? this.span : 0; i < this.verses[this.verse].lines[this.line].spans.length; i++) {
+      if (tt < this.verses[this.verse].lines[this.line].spans[i].tt) break;
+      if (i != this.span) this.newSpan(i);
+    }
+  }
+  function newVerse(n) {
+    if (_gui) {
+      if (typeof this.verse != 'undefined') {
+        this.verses[this.verse].dom.className = 'past';
+        if (typeof this.line != 'undefined') {
+          this.verses[this.verse].lines[this.line].dom.className = 'past';
+          if (typeof this.span != 'undefined') this.verses[this.verse].lines[this.line].spans[this.span].dom.className = 'past';
+        }
+      }
+      this.verses[n].dom.className = 'current';
+    }
+    this.verse = n;
+    this.line = undefined;
+  }
+  function newLine(n) {
+    if (_gui) {
+      if (typeof this.line != 'undefined') {
+        this.verses[this.verse].lines[this.line].dom.className = 'past';
+        if (typeof this.span != 'undefined') this.verses[this.verse].lines[this.line].spans[this.span].dom.className = 'past';
+      }
+      this.verses[this.verse].lines[n].dom.className = 'current';
+    }
+    this.line = n;
+    this.span = undefined;
+  }
+  function newSpan(n) {
+    if (_gui) {
+      if (typeof this.span != 'undefined') this.verses[this.verse].lines[this.line].spans[this.span].dom.className = 'past';
+      this.verses[this.verse].lines[this.line].spans[n].dom.className = 'current';
+    }
+    this.span = n;
   }
 
   JZZ.gui.Karaoke = Karaoke;
