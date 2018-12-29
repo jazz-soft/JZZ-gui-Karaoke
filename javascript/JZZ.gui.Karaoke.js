@@ -177,11 +177,11 @@
   }
   function newVerse(n) {
     if (_gui) {
-      if (typeof this.verse != 'undefined') {
+      if (n) {
         this.verses[this.verse].dom.className = 'past';
-        if (typeof this.line != 'undefined') {
-          this.verses[this.verse].lines[this.line].dom.className = 'past';
-          if (typeof this.span != 'undefined') this.verses[this.verse].lines[this.line].spans[this.span].dom.className = 'past';
+        for (var i = 0; i < this.verses[this.verse].lines.length; i++) {
+          this.verses[this.verse].lines[i].dom.className = 'past';
+          for (var j = 0; j < this.verses[this.verse].lines[i].spans.length; j++) this.verses[this.verse].lines[i].spans[j].dom.className = 'past';
         }
       }
       this.verses[n].dom.className = 'current';
@@ -191,9 +191,9 @@
   }
   function newLine(n) {
     if (_gui) {
-      if (typeof this.line != 'undefined') {
+      if (n) {
         this.verses[this.verse].lines[this.line].dom.className = 'past';
-        if (typeof this.span != 'undefined') this.verses[this.verse].lines[this.line].spans[this.span].dom.className = 'past';
+        for (var i = 0; i < this.verses[this.verse].lines[this.line].spans.length; i++) this.verses[this.verse].lines[this.line].spans[i].dom.className = 'past';
       }
       this.verses[this.verse].lines[n].dom.className = 'current';
     }
@@ -202,7 +202,7 @@
   }
   function newSpan(n) {
     if (_gui) {
-      if (typeof this.span != 'undefined') this.verses[this.verse].lines[this.line].spans[this.span].dom.className = 'past';
+      if (n) this.verses[this.verse].lines[this.line].spans[this.span].dom.className = 'past';
       this.verses[this.verse].lines[this.line].spans[n].dom.className = 'current';
     }
     this.span = n;
