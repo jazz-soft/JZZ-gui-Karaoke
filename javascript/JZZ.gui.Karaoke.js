@@ -56,7 +56,7 @@
           if (smf[i][j].ff == 1) {
             tt = smf[i][j].tt;
             if (!track) {
-              track = { tt: tt, verses: [], reset: reset, update: update, newVerse: newVerse, newLine: newLine, newSpan: newSpan };
+              track = new Track();
               if (this.gui) {
                 track.dom = document.createElement('div');
                 this.gui.appendChild(track.dom);
@@ -144,7 +144,11 @@
     }
     return a.join('\n');
   };
-  function reset() {
+
+  function Track() {
+    this.verses = [];
+  }
+  Track.prototype.reset = function() {
     var i, j, k;
     if (_gui) {
       for (i = 0; i < this.verses.length; i++) {
@@ -158,8 +162,8 @@
       }
     }
     this.verse = undefined;
-  }
-  function update(tt) {
+  };
+  Track.prototype.update = function(tt) {
     var i, j, k;
     for (i = this.verse ? this.verse : 0; i < this.verses.length; i++) {
       if (tt < this.verses[i].tt) break;
@@ -174,38 +178,55 @@
       if (tt < this.verses[this.verse].lines[this.line].spans[i].tt) break;
       if (i != this.span) this.newSpan(i);
     }
-  }
-  function newVerse(n) {
+  };
+  Track.prototype.oldVerse = function() {
     if (_gui) {
-      if (n) {
-        this.verses[this.verse].dom.className = 'past';
-        for (var i = 0; i < this.verses[this.verse].lines.length; i++) {
-          this.verses[this.verse].lines[i].dom.className = 'past';
-          for (var j = 0; j < this.verses[this.verse].lines[i].spans.length; j++) this.verses[this.verse].lines[i].spans[j].dom.className = 'past';
-        }
+      this.verses[this.verse].dom.className = 'past';
+      for (var i = 0; i < this.verses[this.verse].lines.length; i++) {
+        this.verses[this.verse].lines[i].dom.className = 'past';
+        for (var j = 0; j < this.verses[this.verse].lines[i].spans.length; j++) this.verses[this.verse].lines[i].spans[j].dom.className = 'past';
       }
-      this.verses[n].dom.className = 'current';
     }
+  };
+  Track.prototype.newVerse = function(n) {
+    if (n) this.oldVerse();
+    if (_gui) this.verses[n].dom.className = 'current';
     this.verse = n;
     this.line = undefined;
-  }
-  function newLine(n) {
+  };
+  Track.prototype.oldLine = function() {
     if (_gui) {
-      if (n) {
-        this.verses[this.verse].lines[this.line].dom.className = 'past';
-        for (var i = 0; i < this.verses[this.verse].lines[this.line].spans.length; i++) this.verses[this.verse].lines[this.line].spans[i].dom.className = 'past';
-      }
-      this.verses[this.verse].lines[n].dom.className = 'current';
+      this.verses[this.verse].lines[this.line].dom.className = 'past';
+      for (var i = 0; i < this.verses[this.verse].lines[this.line].spans.length; i++) this.verses[this.verse].lines[this.line].spans[i].dom.className = 'past';
     }
+  };
+  Track.prototype.newLine = function(n) {
+    if (n) this.oldLine();
+    if (_gui) this.verses[this.verse].lines[n].dom.className = 'current';
     this.line = n;
     this.span = undefined;
-  }
-  function newSpan(n) {
+  };
+  Track.prototype.oldSpan = function() {
     if (_gui) {
-      if (n) this.verses[this.verse].lines[this.line].spans[this.span].dom.className = 'past';
-      this.verses[this.verse].lines[this.line].spans[n].dom.className = 'current';
+      this.verses[this.verse].lines[this.line].spans[this.span].dom.className = 'past';
     }
+  };
+  Track.prototype.newSpan = function(n) {
+    if (n) this.oldSpan();
+    if (_gui) this.verses[this.verse].lines[this.line].spans[n].dom.className = 'current';
     this.span = n;
+    setTimeout(expire(this, this.verse, this.line, this.span), 1000);
+  };
+  function expire(t, v, l, s) {
+    return function() {
+      if (v == t.verse && l == t.line && s == t.span) {
+        if (s == t.verses[v].lines[l].spans.length - 1) {
+          if (l == t.verses[v].lines.length - 1) t.oldVerse();
+          else t.oldLine();
+        }
+        else t.oldSpan();
+      }
+    };
   }
 
   JZZ.gui.Karaoke = Karaoke;
