@@ -12,6 +12,9 @@ or `bower install jzz-gui-karaoke`
 or `yarn add jzz-gui-karaoke`  
 or get the full development version and minified scripts from [**GitHub**](https://github.com/jazz-soft/JZZ-gui-Karaoke)
 
+## Test
+`node karaoke.js`
+
 ## Usage
 
 ##### Plain HTML
