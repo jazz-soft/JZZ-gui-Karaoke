@@ -1,7 +1,7 @@
 {
   "name": "jzz-gui-karaoke",
-  "version": "0.0.0",
-  "description": "Karaoke Player for browsers",
+  "version": "0.0.1",
+  "description": "Karaoke MIDI Player",
   "main": "javascript/JZZ.gui.Karaoke.js",
   "keywords": [
     "MIDI",
@@ -11,7 +11,7 @@
   ],
   "author": "jazz-soft (https://jazz-soft.net/)",
   "scripts": {
-    "test": "node test.js"
+    "test": "node karaoke.js"
   },
   "dependencies": {
     "jzz": "^0.6.6",

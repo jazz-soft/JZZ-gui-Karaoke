@@ -191,6 +191,10 @@
   Track.prototype.newVerse = function(n) {
     if (n) this.oldVerse();
     if (_gui) this.verses[n].dom.className = 'current';
+    else {
+      process.stdout.write('\n');
+      if (!n && this.title) process.stdout.write(this.title + '\n');
+    }
     this.verse = n;
     this.line = undefined;
   };
@@ -203,6 +207,10 @@
   Track.prototype.newLine = function(n) {
     if (n) this.oldLine();
     if (_gui) this.verses[this.verse].lines[n].dom.className = 'current';
+    else {
+      process.stdout.write('\n');
+      for (var i = 0; i < this.verses[this.verse].lines[n].spans.length; i++) process.stdout.write(this.verses[this.verse].lines[n].spans[i].txt);
+    }
     this.line = n;
     this.span = undefined;
   };
@@ -214,6 +222,11 @@
   Track.prototype.newSpan = function(n) {
     if (n) this.oldSpan();
     if (_gui) this.verses[this.verse].lines[this.line].spans[n].dom.className = 'current';
+    else {
+      process.stdout.write('\r\x1b[1m');
+      for (var i = 0; i <= n; i++) process.stdout.write(this.verses[this.verse].lines[this.line].spans[i].txt);
+      process.stdout.write('\x1b[0m');
+    }
     this.span = n;
     setTimeout(expire(this, this.verse, this.line, this.span), 1000);
   };

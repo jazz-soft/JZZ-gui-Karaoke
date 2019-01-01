@@ -1,6 +1,6 @@
 # JZZ-gui-Karaoke
 
-MIDI Karaoke Player for browsers
+Karaoke MIDI Player
 
 [![npm](https://img.shields.io/npm/v/jzz-gui-karaoke.svg)](https://www.npmjs.com/package/jzz-gui-karaoke)
 [![npm](https://img.shields.io/npm/dt/jzz-gui-karaoke.svg)](https://www.npmjs.com/package/jzz-gui-karaoke)
