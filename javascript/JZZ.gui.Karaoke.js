@@ -180,12 +180,17 @@
     }
   };
   Track.prototype.oldVerse = function() {
+    var i, j;
     if (_gui) {
       this.verses[this.verse].dom.className = 'past';
-      for (var i = 0; i < this.verses[this.verse].lines.length; i++) {
+      for (i = 0; i < this.verses[this.verse].lines.length; i++) {
         this.verses[this.verse].lines[i].dom.className = 'past';
-        for (var j = 0; j < this.verses[this.verse].lines[i].spans.length; j++) this.verses[this.verse].lines[i].spans[j].dom.className = 'past';
+        for (j = 0; j < this.verses[this.verse].lines[i].spans.length; j++) this.verses[this.verse].lines[i].spans[j].dom.className = 'past';
       }
+    }
+    else {
+      process.stdout.write('\r');
+      for (i = 0; i < this.verses[this.verse].lines[this.line].spans.length; i++) process.stdout.write(this.verses[this.verse].lines[this.line].spans[i].txt);
     }
   };
   Track.prototype.newVerse = function(n) {
@@ -199,9 +204,14 @@
     this.line = undefined;
   };
   Track.prototype.oldLine = function() {
+    var i;
     if (_gui) {
       this.verses[this.verse].lines[this.line].dom.className = 'past';
-      for (var i = 0; i < this.verses[this.verse].lines[this.line].spans.length; i++) this.verses[this.verse].lines[this.line].spans[i].dom.className = 'past';
+      for (i = 0; i < this.verses[this.verse].lines[this.line].spans.length; i++) this.verses[this.verse].lines[this.line].spans[i].dom.className = 'past';
+    }
+    else {
+      process.stdout.write('\r');
+      for (i = 0; i < this.verses[this.verse].lines[this.line].spans.length; i++) process.stdout.write(this.verses[this.verse].lines[this.line].spans[i].txt);
     }
   };
   Track.prototype.newLine = function(n) {

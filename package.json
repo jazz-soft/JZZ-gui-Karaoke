@@ -1,6 +1,6 @@
 {
   "name": "jzz-gui-karaoke",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Karaoke MIDI Player",
   "main": "javascript/JZZ.gui.Karaoke.js",
   "keywords": [
