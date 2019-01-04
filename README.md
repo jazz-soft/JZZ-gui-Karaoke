@@ -76,8 +76,8 @@ Generated Karaoke DOM tree looks like the following:
         </p>
         <p class=current> // current verse
           <div class=past> // past line
-          </div>
           ...
+          </div>
           <div class=current> // current line
             <div class=past>Ma</div> // past span
             <div class=current>ry </div> // current span
