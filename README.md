@@ -14,6 +14,7 @@ or get the full development version and minified scripts from [**GitHub**](https
 
 ## Test
 `node karaoke.js`
+or `node karaoke.js filename.kar`
 
 ## Usage
 
@@ -59,6 +60,39 @@ or get the full development version and minified scripts from [**GitHub**](https
       player.onEnd = function() { karaoke.reset(); };
       player.play();
     --></script>
+
+## CSS
+
+It's up to the user how to style the Karaoke.
+Generated Karaoke DOM tree looks like the following:
+
+    <div class=karaoke> // parent element
+      <div> // one for each track that has text
+        <div class=t>...</div> // Title and oter special text events:
+        // t for @T..., k for @K..., v for @V..., i for @I..., l for @L..., w for @W...
+        // most of these except the title are best to set invisible.
+        <p class=past> // past verses
+        ...
+        </p>
+        <p class=current> // current verse
+          <div class=past> // past line
+          </div>
+          ...
+          <div class=current> // current line
+            <div class=past>Ma</div> // past span
+            <div class=current>ry </div> // current span
+            <div>was </div> // future spans - no class
+            ...
+          </div>
+          <div> // future lines - no class
+          ...
+          </div>
+        </p>
+        <p> // future verses - no class
+        ...
+        </p>
+      </div>
+    </div>
 
 ## More information
 
