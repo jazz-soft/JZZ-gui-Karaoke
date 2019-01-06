@@ -44,20 +44,23 @@
   }
   Karaoke.prototype.load = function(smf) {
     var i, j, msg, txt, cl, tt;
-    var track, verse, line, div, span;
-    if (this.gui) while (this.gui.firstChild) {
+    var track, verse, line, div, span, count;
+    var maxcount = 0;
+    if (_gui) while (this.gui.firstChild) {
       this.gui.removeChild(this.gui.firstChild);
     }
     this.tracks = [];
     for (i = 0; i < smf.length; i++) {
       if (smf[i] instanceof JZZ.MIDI.SMF.MTrk) {
         track = undefined;
+        count = 0;
         for (j = 0; j < smf[i].length; j++) {
           if (smf[i][j].ff == 1) {
             tt = smf[i][j].tt;
             if (!track) {
               track = new Track();
-              if (this.gui) {
+              if (!this.track) this.track = track;
+              if (_gui) {
                 track.dom = document.createElement('div');
                 this.gui.appendChild(track.dom);
               }
@@ -68,7 +71,7 @@
             if (txt[0] == '@') {
               cl = { K: 'k', V: 'v', I: 'i', L: 'l', T: 't', W: 'w' }[txt[1]];
               if (cl) txt = txt.substring(2);
-              if (this.gui) {
+              if (_gui) {
                 div = document.createElement('div');
                 if (cl) div.className = cl;
                 div.appendChild(document.createTextNode(txt));
@@ -88,7 +91,7 @@
             }
             if (!verse) {
               verse = { tt: tt, lines: [] };
-              if (this.gui) {
+              if (_gui) {
                 verse.dom = document.createElement('p');
                 track.dom.appendChild(verse.dom);
               }
@@ -97,20 +100,25 @@
             }
             if (!line) {
               line = { tt: tt, spans: [] };
-              if (this.gui) {
+              if (_gui) {
                 line.dom = document.createElement('div');
                 verse.dom.appendChild(line.dom);
               }
               verse.lines.push(line);
             }
             span = { tt: tt, txt: txt };
-            if (this.gui) {
+            count++;
+            if (_gui) {
               span.dom = document.createElement('span');
               span.dom.appendChild(document.createTextNode(txt));
               line.dom.appendChild(span.dom);
             }
             line.spans.push(span);
           }
+        }
+        if (track && count > maxcount) {
+          maxcount = count;
+          this.track = track;
         }
       }
     }
@@ -120,7 +128,8 @@
   };
   Karaoke.prototype._receive = function(msg) {
     if (typeof msg.tt != 'undefined') {
-      for (var i = 0; i < this.tracks.length; i++) this.tracks[i].update(msg.tt);
+      if (_gui) for (var i = 0; i < this.tracks.length; i++) this.tracks[i].update(msg.tt);
+      else if (this.track) this.track.update(msg.tt);
     }
   };
   Karaoke.prototype.toString = function() {
