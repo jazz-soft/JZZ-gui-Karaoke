@@ -128,8 +128,10 @@
   };
   Karaoke.prototype._receive = function(msg) {
     if (typeof msg.tt != 'undefined') {
+      if (this.tt && msg.tt < this.tt) this.reset();
       if (_gui) for (var i = 0; i < this.tracks.length; i++) this.tracks[i].update(msg.tt);
       else if (this.track) this.track.update(msg.tt);
+      this.tt = msg.tt;
     }
   };
   Karaoke.prototype.toString = function() {
