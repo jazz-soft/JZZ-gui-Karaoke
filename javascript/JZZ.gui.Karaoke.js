@@ -50,6 +50,7 @@
       this.gui.removeChild(this.gui.firstChild);
     }
     this.tracks = [];
+    this._tt = 0;
     for (i = 0; i < smf.length; i++) {
       if (smf[i] instanceof JZZ.MIDI.SMF.MTrk) {
         track = undefined;
@@ -126,13 +127,12 @@
   Karaoke.prototype.reset = function() {
     for (var i = 0; i < this.tracks.length; i++) this.tracks[i].reset();
   };
-  Karaoke.prototype._receive = function(msg) {
-    if (typeof msg.tt != 'undefined') {
-      if (this.tt && msg.tt < this.tt) this.reset();
-      if (_gui) for (var i = 0; i < this.tracks.length; i++) this.tracks[i].update(msg.tt);
-      else if (this.track) this.track.update(msg.tt);
-      this.tt = msg.tt;
-    }
+  Karaoke.prototype._receive = function(msg) { if (typeof msg.tt != 'undefined') this.jump(msg.tt); };
+  Karaoke.prototype.jump = function(t) {
+    if (this._tt > t) this.reset();
+    this._tt = t;
+    if (_gui) for (var i = 0; i < this.tracks.length; i++) this.tracks[i].update(t);
+    else if (this.track) this.track.update(t);
   };
   Karaoke.prototype.toString = function() {
     var a = [];

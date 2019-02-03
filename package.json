@@ -15,15 +15,15 @@
   },
   "dependencies": {
     "jzz": "^0.6.6",
-    "jzz-midi-smf": "^1.0.8"
+    "jzz-midi-smf": "^1.1.1"
   },
   "devDependencies": {
     "grunt": "^1.0.3",
     "grunt-contrib-jshint": "^2.0.0",
     "grunt-contrib-uglify": "^4.0.0",
-    "jzz-gui-player": "^1.0.4",
+    "jzz-gui-player": "^1.0.7",
     "jzz-synth-osc": "^1.1.1",
-    "jzz-synth-tiny": "^1.0.3"
+    "jzz-synth-tiny": "^1.0.4"
   },
   "repository": {
     "type": "git",

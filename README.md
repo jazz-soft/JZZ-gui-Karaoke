@@ -53,8 +53,9 @@ or `node karaoke.js filename.kar`
       var midiout = JZZ().openMidiOut().or('Cannot open MIDI Out');
       var data = ... // load the .kar file as string
       var smf = new JZZ.MIDI.SMF(data);
-      var player = smf.player();
       var karaoke = new JZZ.gui.Karaoke('kar');
+      var player = smf.player();
+      karaoke.load(smf);
       player.connect(karaoke);
       player.connect(midiout);
       player.onEnd = function() { karaoke.reset(); };
