@@ -1,6 +1,6 @@
 {
   "name": "jzz-gui-karaoke",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Karaoke MIDI Player",
   "main": "javascript/JZZ.gui.Karaoke.js",
   "keywords": [
@@ -21,7 +21,7 @@
     "grunt": "^1.0.3",
     "grunt-contrib-jshint": "^2.0.0",
     "grunt-contrib-uglify": "^4.0.0",
-    "jzz-gui-player": "^1.0.7",
+    "jzz-gui-player": "^1.0.8",
     "jzz-synth-osc": "^1.1.1",
     "jzz-synth-tiny": "^1.0.4"
   },

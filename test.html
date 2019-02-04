@@ -68,6 +68,8 @@ var karaoke = new JZZ.gui.Karaoke('karaoke');
 player.connect(karaoke);
 player.connect(JZZ().openMidiOut());
 player.onEnd = function() { karaoke.reset(); };
+player.onLoad = function(smf) { karaoke.load(smf); player.play(); };
+player.onJump = function(t) { karaoke.jump(t); };
 
 function clear() {
   player.stop();
@@ -76,15 +78,13 @@ function clear() {
 }
 
 function load(data) {
-  //try {
+  try {
     var smf = new JZZ.MIDI.SMF(data);
     player.load(smf);
-    karaoke.load(smf);
-    //player.play();
-  //}
-  //catch (e) {
-  //  report(e)();
-  //}
+  }
+  catch (e) {
+    report(e)();
+  }
 }
 
 function fileClicked() {
