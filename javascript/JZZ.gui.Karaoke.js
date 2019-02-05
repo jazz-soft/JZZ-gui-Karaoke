@@ -16,32 +16,33 @@
   var _gui;
 
   function Karaoke(at) {
-    var self = new JZZ.Widget();
-    for (var k in Karaoke.prototype) if (Karaoke.prototype.hasOwnProperty(k)) self[k] = Karaoke.prototype[k];
-    self.tracks = [];
+    if (!(this instanceof Karaoke)) return new Karaoke(at);
+    this.tracks = [];
     try {
-      self.gui = document.createElement('div');
+      this.gui = document.createElement('div');
       _gui = true;
     }
     catch (e) {
-      return self; // not in browser
+      return this; // not in browser
     }
-    self.gui.className = 'karaoke';
+    this.gui.className = 'karaoke';
     if (typeof at == 'string') {
       try {
-        document.getElementById(at).appendChild(self.gui);
-        return self;
+        document.getElementById(at).appendChild(this.gui);
+        return this;
       }
       catch(e) {}
     }
     try {
-      at.appendChild(self.gui);
-      return self;
+      at.appendChild(this.gui);
+      return this;
     }
     catch(e) {}
-    document.body.appendChild(self.gui);
-    return self;
+    document.body.appendChild(this.gui);
   }
+  Karaoke.prototype = new JZZ.Widget();
+  Karaoke.prototype.constructor = Karaoke;
+
   Karaoke.prototype.load = function(smf) {
     var i, j, msg, txt, cl, tt;
     var track, verse, line, div, span, count;
