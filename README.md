@@ -47,6 +47,8 @@ or `node karaoke.js filename.kar`
 
 ## Playing MIDI file
 
+Please check the [**API Reference**](https://jazz-soft.net/doc/JZZ/karaoke.html) !
+
     <div id=kar></div>
 
     <script><!--

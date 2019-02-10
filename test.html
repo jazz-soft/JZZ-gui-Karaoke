@@ -4,34 +4,18 @@
 <title>JZZ.gui.Karaoke Test</title>
 <script src="node_modules/jzz/javascript/JZZ.js"></script>
 <script src="node_modules/jzz-synth-tiny/javascript/JZZ.synth.Tiny.js"></script>
-<script src="node_modules/jzz-synth-osc/javascript/JZZ.synth.OSC.js"></script>
 <script src="node_modules/jzz-midi-smf/javascript/JZZ.midi.SMF.js"></script>
 <script src="node_modules/jzz-gui-player/javascript/JZZ.gui.Player.js"></script>
 <script src="javascript/JZZ.gui.Karaoke.js"></script>
 <style type="text/css">
-.karaoke {
- background-color: #f0f0ff;
-}
-.karaoke .t {
- font-size: 110%;
- font-weight: bold;
-}
-.karaoke p.current {
- background-color: #ffd;
-}
-.karaoke div.current {
- text-decoration: underline;
-}
-.karaoke span.current {
- color: #f00;
-}
-.karaoke span.past {
- color: #d0c;
-}
-.karaoke .k, .karaoke .v, .karaoke .i, .karaoke .l, .karaoke .w {
- font-size: 50%;
- color: #888;
-}
+.karaoke { background-color: #eef; padding: .5em; }
+.karaoke .t { font-size: 110%; font-weight: bold; }
+.karaoke p { margin: 0; padding: .5em; }
+.karaoke p.current { background-color: #ffe; }
+.karaoke div.current { text-decoration: underline; }
+.karaoke span.current { color: #f00; }
+.karaoke span.past { color: #d0c; }
+.karaoke .k, .karaoke .v, .karaoke .i, .karaoke .l, .karaoke .w { font-size: 50%; color: #888; }
 </style>
 </head>
 
@@ -45,10 +29,6 @@
 <a target=_blank href=https://chrome.google.com/webstore/detail/jazz-midi/jhdoobfdaejmldnpihidjemjcbpfmbkm>Chrome Web Store</a>
 or <a target=_blank href=https://addons.mozilla.org/en-US/firefox/addon/jazz-midi>Mozilla Add-ons</a>.
 </p>
-<span>
-<button onclick="fileClicked();">Load from file</button>
-<input type=file id=file style='display:none;' onchange='fromFile();'>
-</span>
 <pre id=log></pre>
 
 <script><!--
@@ -57,57 +37,18 @@ function report(s) { return function() { log.innerHTML = s; }; }
 
 document.getElementById('player').innerHTML = 'Please run <tt style="background-color:#bbf;"><b>npm install</b></tt> to enable this test.';
 
-JZZ.synth.Tiny.register('Web Audio 1');
-JZZ.synth.OSC.register('Web Audio 2');
+JZZ.synth.Tiny.register('Web Audio');
 document.getElementById('player').innerHTML = '';
 document.getElementById('note').style.display = 'block';
 
 JZZ().or(report('Cannot start MIDI engine!')).openMidiOut().or(report('Cannot open MIDI Out!'));
-var player = new JZZ.gui.Player('player');
+var player = new JZZ.gui.Player({ at: 'player', file: true });
 var karaoke = new JZZ.gui.Karaoke('karaoke');
 player.connect(karaoke);
-player.connect(JZZ().openMidiOut());
 player.onEnd = function() { karaoke.reset(); };
-player.onLoad = function(smf) { karaoke.load(smf); player.play(); };
+player.onStop = function() { karaoke.reset(); };
+player.onLoad = function(smf) { karaoke.load(smf); };
 player.onJump = function(t) { karaoke.jump(t); };
-
-function clear() {
-  player.stop();
-  player.disable();
-  log.innerHTML = '';
-}
-
-function load(data) {
-  try {
-    var smf = new JZZ.MIDI.SMF(data);
-    player.load(smf);
-  }
-  catch (e) {
-    report(e)();
-  }
-}
-
-function fileClicked() {
-  clear();
-  setTimeout(function() { document.getElementById('file').click(); }, 0);
-}
-
-function fromFile() {
-  if (window.FileReader) {
-    var reader = new FileReader();
-    var f = document.getElementById('file').files[0];
-    reader.onload = function(e) {
-      var data = '';
-      var bytes = new Uint8Array(e.target.result);
-      for (var i = 0; i < bytes.length; i++) {
-        data += String.fromCharCode(bytes[i]);
-      }
-      load(data);
-    };
-    reader.readAsArrayBuffer(f);
-  }
-  else report('File API is not supported in this browser.')();
-}
 
 var data='\
 TVRoZAAAAAYAAQADAGRNVHJrAAAAGgD/AwtMaXR0bGUgTGFtZQD/UQMKLCsA/y8ATVRyawAAAPMA/wMG\
@@ -121,8 +62,7 @@ gENACpBAf0uAQEAAkD5/GYA+QACQPH8ygDxAAJA+fzKAPkAAkEB/MoBAQACQQH8ygEBAAJBAfzKAQEAZ
 kEB/GYBAQACQPn8ygD5AAJA+fzKAPkAAkEB/MoBAQACQPn8ygD5AAJA8f2RAZABDZABIf1qAPEAAQEAA\
 Q0AASEAK/y8A';
 
-load(JZZ.lib.fromBase64(data));
-
+player.load(new JZZ.MIDI.SMF(JZZ.lib.fromBase64(data)));
 --></script>
 
 </body>
