@@ -1,8 +1,12 @@
 {
   "name": "jzz-gui-karaoke",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Karaoke MIDI Player",
   "main": "javascript/JZZ.gui.Karaoke.js",
+  "scripts": {
+    "lint": "eslint javascript",
+    "test": "node karaoke.js"
+  },
   "keywords": [
     "karaoke",
     "midi",
@@ -10,14 +14,12 @@
     "player"
   ],
   "author": "jazz-soft (https://jazz-soft.net/)",
-  "scripts": {
-    "test": "node karaoke.js"
-  },
   "dependencies": {
     "jzz": "^0.8.0",
     "jzz-midi-smf": "^1.2.4"
   },
   "devDependencies": {
+    "eslint": "^5.16.0",
     "grunt": "^1.0.4",
     "grunt-contrib-jshint": "^2.1.0",
     "grunt-contrib-uglify": "^4.0.1",

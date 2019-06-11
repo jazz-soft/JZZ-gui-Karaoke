@@ -44,7 +44,7 @@
   Karaoke.prototype.constructor = Karaoke;
 
   Karaoke.prototype.load = function(smf) {
-    var i, j, msg, txt, cl, tt;
+    var i, j, txt, cl, tt;
     var track, verse, line, div, span, count;
     var maxcount = 0;
     if (_gui) while (this.gui.firstChild) {
@@ -139,16 +139,16 @@
     var a = [];
     for (var i = 0; i < this.tracks.length; i++) {
       var track = this.tracks[i];
-      if (this.tracks[i].title) {
+      if (track.title) {
         if (a.length) a.push('');
-        a.push(this.tracks[i].title);
+        a.push(track.title);
       }
-      for (var j = 0; j < this.tracks[i].verses.length; j++) {
+      for (var j = 0; j < track.verses.length; j++) {
         if (a.length) a.push('');
-        for (var k = 0; k < this.tracks[i].verses[j].lines.length; k++) {
+        for (var k = 0; k < track.verses[j].lines.length; k++) {
           var s = '';
-          for (var n = 0; n < this.tracks[i].verses[j].lines[k].spans.length; n++) {
-            s += this.tracks[i].verses[j].lines[k].spans[n].txt;
+          for (var n = 0; n < track.verses[j].lines[k].spans.length; n++) {
+            s += track.verses[j].lines[k].spans[n].txt;
           }
           a.push(s);
         }
@@ -176,7 +176,7 @@
     this.verse = undefined;
   };
   Track.prototype.update = function(tt) {
-    var i, j, k;
+    var i;
     for (i = this.verse ? this.verse : 0; i < this.verses.length; i++) {
       if (tt < this.verses[i].tt) break;
       if (i != this.verse) this.newVerse(i);
