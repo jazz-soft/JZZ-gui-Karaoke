@@ -11,6 +11,11 @@ kar.load(smf);
 var player = smf.player();
 player.connect(kar);
 
+JZZ.lib.registerMidiOut('dummy', {
+  _info: function(name) { return { name: name }; },
+  _openOut: function(port) { port._resume(); }
+});
+
 JZZ().or('Cannot start MIDI engine!').openMidiOut().or('Cannot open MIDI Out!').and(function() {
   player.connect(this);
   player.play();
