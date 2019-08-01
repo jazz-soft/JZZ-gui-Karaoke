@@ -15,6 +15,6 @@ describe('In terminal', function() {
     player.connect(kar);
     player.speed(20);
     player.play();
-    setTimeout(done, 2000);
+    setTimeout(function() { console.log('\n\n' + kar); done(); }, 2000);
   }).timeout(2500);
 });
