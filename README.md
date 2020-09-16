@@ -4,7 +4,7 @@ Karaoke MIDI Player
 
 [![npm](https://img.shields.io/npm/v/jzz-gui-karaoke.svg)](https://www.npmjs.com/package/jzz-gui-karaoke)
 [![npm](https://img.shields.io/npm/dt/jzz-gui-karaoke.svg)](https://www.npmjs.com/package/jzz-gui-karaoke)
-[![Build Status](https://travis-ci.org/jazz-soft/JZZ-gui-Karaoke.svg?branch=master)](https://travis-ci.org/jazz-soft/JZZ-gui-Karaoke)
+[![Build Status](https://travis-ci.com/jazz-soft/JZZ-gui-Karaoke.svg?branch=master)](https://travis-ci.com/jazz-soft/JZZ-gui-Karaoke)
 [![Coverage Status](https://coveralls.io/repos/github/jazz-soft/JZZ-gui-Karaoke/badge.svg?branch=master)](https://coveralls.io/github/jazz-soft/JZZ-gui-Karaoke?branch=master)
 
 ## Install
