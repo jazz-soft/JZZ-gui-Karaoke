@@ -36,6 +36,6 @@
     "url": "https://github.com/jazz-soft/JZZ-gui-Karaoke.git"
   },
   "homepage": "https://jazz-soft.net/doc/JZZ/karaoke.html",
-  "bugs": "https://jazz-soft.org",
+  "bugs": "https://github.com/jazz-soft/JZZ-gui-Karaoke/issues",
   "license": "MIT"
 }
