@@ -1,12 +1,12 @@
 {
   "name": "jzz-gui-karaoke",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Karaoke MIDI Player",
   "main": "javascript/JZZ.gui.Karaoke.js",
   "scripts": {
     "test": "nyc instrument ./javascript ./test/.instrumented && nyc mocha test/mocha1.js && nyc --no-clean mocha test/mocha2.js",
     "lint": "eslint javascript test",
-    "coverage": "nyc report --reporter=text-lcov | coveralls"
+    "coverage": "nyc report --reporter=lcov"
   },
   "keywords": [
     "karaoke",
@@ -16,18 +16,17 @@
   ],
   "author": "jazz-soft (https://jazz-soft.net/)",
   "dependencies": {
-    "jzz": "^1.2.6",
-    "jzz-midi-smf": "^1.4.9"
+    "jzz": "^1.2.8",
+    "jzz-midi-smf": "^1.5.0"
   },
   "devDependencies": {
-    "coveralls": "^3.1.0",
-    "eslint": "^7.22.0",
+    "eslint": "^7.23.0",
     "grunt": "^1.3.0",
     "grunt-contrib-jshint": "^3.0.0",
-    "grunt-contrib-uglify": "^5.0.0",
-    "jsdom": "^16.4.0",
-    "jzz-gui-player": "^1.4.7",
-    "jzz-synth-tiny": "^1.2.5",
+    "grunt-contrib-uglify": "^5.0.1",
+    "jsdom": "^16.5.2",
+    "jzz-gui-player": "^1.4.8",
+    "jzz-synth-tiny": "^1.2.6",
     "mocha": "^8.3.2",
     "nyc": "^15.1.0"
   },
