@@ -10,7 +10,6 @@ Karaoke MIDI Player
 ## Install
 
 `npm install jzz-gui-karaoke --save`  
-or `bower install jzz-gui-karaoke`  
 or `yarn add jzz-gui-karaoke`  
 or get the full development version and minified scripts from [**GitHub**](https://github.com/jazz-soft/JZZ-gui-Karaoke)
 
