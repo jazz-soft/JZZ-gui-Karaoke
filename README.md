@@ -51,7 +51,18 @@ or `node karaoke.js filename.kar`
 ```js
 var JZZ = require('jzz');
 require('jzz-midi-smf')(JZZ);
-require('jzz-gui-player')(JZZ);
+require('jzz-gui-karaoke')(JZZ);
+//...
+```
+
+##### TypeScript / ES6
+
+```ts
+import { JZZ } from 'jzz';
+import { SMF } from 'jzz-midi-smf';
+import { Karaoke } from 'jzz-gui-karaoke';
+SMF(JZZ);
+Karaoke(JZZ);
 //...
 ```
 

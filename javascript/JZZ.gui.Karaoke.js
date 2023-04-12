@@ -1,5 +1,6 @@
 (function(global, factory) {
   if (typeof exports === 'object' && typeof module !== 'undefined') {
+    factory.Karaoke = factory;
     module.exports = factory;
   }
   else if (typeof define === 'function' && define.amd) {
