@@ -6,7 +6,7 @@ var assert = require('assert');
 describe('In terminal', function() {
   it('it works!', function(done) {
     assert.equal(0, 0);
-    var file = 'mary.mid';
+    var file = 'test.mid';
     var data = require('fs').readFileSync(file, 'binary');
     var smf = new JZZ.MIDI.SMF(data);
     var kar = new JZZ.gui.Karaoke();

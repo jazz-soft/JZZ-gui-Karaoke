@@ -3,7 +3,7 @@ require('jzz-midi-smf')(JZZ);
 require('.')(JZZ);
 
 var file = process.argv[2];
-if (typeof file == 'undefined') file = 'mary.mid';
+if (typeof file == 'undefined') file = 'test.mid';
 var data = require('fs').readFileSync(file, 'binary');
 var smf = new JZZ.MIDI.SMF(data);
 var kar = new JZZ.gui.Karaoke();
